@@ -1,0 +1,24 @@
+{
+	"name":"Node Authentication",
+	"version":"0.0.1",
+	"private":"true",
+	"description": "Node authentication with nodejs, expressjs, handlebarsjs and mongodb",
+	"dependencies":{
+		"bcryptjs": "*",
+		"body-parser":"*",
+		"connect-flash": "*",
+		"cookie-parser": "*",
+		"express":"*",
+		"express-handlebars":"*",
+		"express-messages":"*",
+		"express-session":"*",
+		"express-validator":"*",
+		"mongodb":"*",
+		"mongojs":"*",
+		"mongoose":"*",
+		"passport":"*",
+		"passport-http":"*",
+		"passport-local":"*"
+	},
+	"author": "Sajib Sikder"
+}
