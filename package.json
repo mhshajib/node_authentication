@@ -1,6 +1,6 @@
 {
-	"name":"Node Authentication",
-	"version":"0.0.1",
+	"name":"node_authentication",
+	"version":"1.0.0",
 	"private":"true",
 	"description": "Node authentication with nodejs, expressjs, handlebarsjs and mongodb",
 	"dependencies":{
