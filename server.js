@@ -16,7 +16,7 @@ var app = express();
 
 //View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', expressHandlebars({defaultLayout:'layout'}));
+app.engine('handlebars', expressHandlebars.engine());
 app.set('view engine', 'handlebars');
 
 //Body parser middleware
@@ -39,21 +39,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Express validator
-app.use(expressValidator({
-	errorFormatter: function (param, msg, value) {
-		var namespace = param.split('.')
-			, root = namespace.shift()
-			, formParam = root;
-		while(namespace.length){
-			formParam += '[' + namespace.shift() + ']';
-		}
-		return {
-			param: formParam,
-			msg: msg,
-			value: value
-		};
-	}
-}));
+
+//TODO:Need to fix validation
+
+// app.use(expressValidator({
+// 	errorFormatter: function (param, msg, value) {
+// 		var namespace = param.split('.')
+// 			, root = namespace.shift()
+// 			, formParam = root;
+// 		while(namespace.length){
+// 			formParam += '[' + namespace.shift() + ']';
+// 		}
+// 		return {
+// 			param: formParam,
+// 			msg: msg,
+// 			value: value
+// 		};
+// 	}
+// }));
 
 //Connect flash
 app.use(connectFlash());
