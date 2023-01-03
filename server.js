@@ -9,7 +9,8 @@ var expressSession = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/passport', { useMongoClient: true});
+mongoose.set('strictQuery',false);
+mongoose.connect('mongodb://localhost:27017/passport');
 
 //Init app
 var app = express();
@@ -59,6 +60,9 @@ app.use(passport.session());
 // }));
 
 //Connect flash
+/* 
+
+*/
 app.use(connectFlash());
 
 //Global vars
@@ -78,7 +82,7 @@ app.use('/users', require('./routes/users'));
 app.set('port',3300);
 
 mongoose.connection.on('error', function(err) {
-    console.log('Mongodb is not running.');
+    console.log('Mongodb is not running.', err);
     process.exit();
 }).on('connected', function() {
     app.listen(app.get('port'), function() {
