@@ -21,7 +21,7 @@ npm install
 4. Run
 
 ```
-nodejs server
+node server
 ```
 
 Go to http://localhost:3300 and your example is ready.
