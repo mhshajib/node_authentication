@@ -98,9 +98,12 @@ router.post('/login', passport.authenticate('local', { successRedirect: '/', fai
 
 //User Logout
 router.get('/logout', function (req, res, next) {
-    req.logout();
-    req.flash('success_msg', 'You are logged out');
-    res.redirect('/users/login');
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        req.flash('success_msg', 'You are logged out');
+        res.redirect('/users/login');
+      });
+  
 });
 
 
