@@ -23,10 +23,27 @@ app.set('view engine', 'handlebars');
 //Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
+/* 
+1. Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
+2. Optionally you may enable signed cookie support by passing a secret string, which assigns req.secret so it may be used by other middleware.
+3. Given an object, this will iterate over the keys and check if any value is a signed cookie.
+4. Parse a cookie value as a signed cookie.
+5. The secret argument can be an array or string. If a string is provided, this is used as the secret.
+*/
 app.use(cookieParser());
 
 //Set statuc folder
 app.use(express.static(path.join(__dirname, 'public')));
+/* 
+1. express-session accepts some properties.It is given below:
+cookie,
+cookie.domain, 
+cookie.expires
+2. Cookie is a settings object which is the session ID cookie. Session data is not saved in the cookie itself, just the session ID. Session data is stored server-side.
+3. Specifies the value for the Domain Set-Cookie attribute and cookie.expires properties have specifies the Date object to be the value for the Expires Set-Cookie attribute.
+4. Since version 1.5.0, the cookie-parser middleware no longer needs to be used for this module to work. 
+5. This module now directly reads and writes cookies on req/res. Using cookie-parser may result in issues if the secret is not the same between this module and cookie-parser.
+*/
 
 //Express Session
 app.use(expressSession({
