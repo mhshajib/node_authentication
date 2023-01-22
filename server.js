@@ -9,14 +9,15 @@ var expressSession = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/passport', { useMongoClient: true});
+mongoose.set('strictQuery',false);
+mongoose.connect('mongodb://localhost:27017/passport');
 
 //Init app
 var app = express();
 
 //View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', expressHandlebars({defaultLayout:'layout'}));
+app.engine('handlebars', expressHandlebars.engine());
 app.set('view engine', 'handlebars');
 
 //Body parser middleware
@@ -39,23 +40,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Express validator
-app.use(expressValidator({
-	errorFormatter: function (param, msg, value) {
-		var namespace = param.split('.')
-			, root = namespace.shift()
-			, formParam = root;
-		while(namespace.length){
-			formParam += '[' + namespace.shift() + ']';
-		}
-		return {
-			param: formParam,
-			msg: msg,
-			value: value
-		};
-	}
-}));
+
+//TODO:Need to fix validation
+
+// app.use(expressValidator({
+// 	errorFormatter: function (param, msg, value) {
+// 		var namespace = param.split('.')
+// 			, root = namespace.shift()
+// 			, formParam = root;
+// 		while(namespace.length){
+// 			formParam += '[' + namespace.shift() + ']';
+// 		}
+// 		return {
+// 			param: formParam,
+// 			msg: msg,
+// 			value: value
+// 		};
+// 	}
+// }));
 
 //Connect flash
+/* 
+
+*/
 app.use(connectFlash());
 
 //Global vars
@@ -75,7 +82,7 @@ app.use('/users', require('./routes/users'));
 app.set('port',3300);
 
 mongoose.connection.on('error', function(err) {
-    console.log('Mongodb is not running.');
+    console.log('Mongodb is not running.', err);
     process.exit();
 }).on('connected', function() {
     app.listen(app.get('port'), function() {
